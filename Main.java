@@ -167,7 +167,7 @@ public class Main {
   private static Pair<WholeTape, String> step(Instruction[] program, WholeTape tape, String state){
     var symbol = read(tape);
     var action = action(program, state, symbol);
-    var newTape = write(tape, action.symbol);
+    var newTape = write(tape, action.symbol == '*' ? symbol : action.symbol);
     return new Pair<>(
       action.direction.move(newTape), 
       action.state);
@@ -223,11 +223,15 @@ public class Main {
     var top = fromFile("top.tm");
     var add = fromFile("add.tm");
     var pop = fromFile("pop.tm");
+    var inc = fromFile("inc.tm");
+    var dup = fromFile("dup.tm");
     printTape(t);
     t = execute(top, t);
     // t = execute(add, t);
     // t = execute(add, t);
-    t = execute(pop, t);
+    // t = execute(pop, t);
+    // t = execute(inc, t);
+    t = execute(dup, t);
   }
 
 }
